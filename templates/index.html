@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>API Data Explorer</title>
+    </head>
+    <body>
+        <h1>API Data Explorer</h1>
+        <p>Explore posts retrieved from an external API.</p>
+        <form action="/" method="get">
+            <label for="limit">Posts per page:</label>
+            <select name="limit" id="limit">
+                <option value="5" {% if limit == 5 %}selected{% endif %}>5</option>
+                <option value="10" {% if limit == 10 %}selected{% endif %}>10</option>
+                <option value="20" {% if limit == 20 %}selected{% endif %}>20</option>
+                <option value="50" {% if limit == 50 %}selected{% endif %}>50</option>
+            </select>
+            <label for="user_id">User ID</label>
+            <select name="user_id" id="user_id">
+                <option value="0" {% if user_id == 0 %}selected{% endif %}>All Users</option>
+                <option value="1" {% if user_id == 1 %}selected{% endif %}>User 1</option>
+                <option value="2" {% if user_id == 2 %}selected{% endif %}>User 2</option>
+                <option value="3" {% if user_id == 3 %}selected{% endif %}>User 3</option>
+                <option value="4" {% if user_id == 4 %}selected{% endif %}>User 4</option>
+                <option value="5" {% if user_id == 5 %}selected{% endif %}>User 5</option>
+                <option value="6" {% if user_id == 6 %}selected{% endif %}>User 6</option>
+                <option value="7" {% if user_id == 7 %}selected{% endif %}>User 7</option>
+                <option value="8" {% if user_id == 8 %}selected{% endif %}>User 8</option>
+                <option value="9" {% if user_id == 9 %}selected{% endif %}>User 9</option>
+                <option value="10" {% if user_id == 10 %}selected{% endif %}>User 10</option>
+            </select>
+            <button type="submit">Apply</button>
+        </form>
+        <h2>Posts</h2>
+        {% for post in posts %}
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.body }}</p>
+        {% endfor %}
+        <div>
+            {% if page > 1 %}
+                <a href="/?page={{ page - 1 }}&limit={{ limit }}&user_id={{ user_id }}">Previous</a>
+            {% endif %}
+
+            <span>Page {{page}} of {{ total_pages }}</span>
+            {% if page < total_pages %}
+                <a href="/?page={{ page + 1 }}&limit={{ limit }}&user_id={{ user_id }}">Next</a>
+            {% endif %}
+        </div>
+    </body>
+</html>
